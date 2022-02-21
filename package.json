@@ -29,7 +29,7 @@
     "react-dom": "latest",
     "react-moralis": "^1.3.1",
     "react-scripts": "^5.0.0",
-    "react-tradingview-widget": "^1.3.2",
+    "react-tradingview-widget": "latest",
     "web3": "^1.7.0"
   },
   "devDependencies": {

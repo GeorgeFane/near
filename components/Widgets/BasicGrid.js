@@ -9,7 +9,9 @@ const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
+    width: 550,
     color: theme.palette.text.secondary,
+    alignSelf: 'center'
 }));
 
 const peg_multiplier = 10 ** 8;
@@ -20,7 +22,7 @@ var formatter = new Intl.NumberFormat('en-US', {
 
 export default function BasicGrid({ state }) {
 
-    const { free_collateral, usdc_balance, positions_value, maxLeverage, user_positions } = state;
+    const { total_collateral } = state;
     
     return (
         <Item>
@@ -58,15 +60,15 @@ export default function BasicGrid({ state }) {
                 <Grid item xs>
                     {
                         formatter.format(
-                            (
-                                Number(free_collateral) + positions_value / maxLeverage
-                            ) / peg_multiplier
+                            total_collateral / peg_multiplier
                         )
                     }
                 </Grid>
                 
                 <Grid item xs>
-                    <Switch />
+                    <Switch
+                        defaultChecked
+                    />
                 </Grid>
                 
                 <Grid item xs>

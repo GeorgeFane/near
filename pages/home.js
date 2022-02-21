@@ -19,20 +19,19 @@ export default function HomePage({ contract_avaperps, contract_erc20copy }) {
     const [state, setState] = React.useState();
     const [quotes, set_quotes] = React.useState();
 
-    const coins = 'avax btc eth link'.split(' ');
+    const coins = 'near btc eth'.split(' ');
 
     const get_prices = async () => {
-        const url = 'https://api.covalenthq.com/v1/pricing/tickers/?quote-currency=USD&format=JSON&tickers=btc,eth,avax,link&key=ckey_a1450a78fcfc4d27aa954670c11'
+        const url = 'https://api.coingecko.com/api/v3/simple/price?ids=near%2Cbitcoin%2Cethereum&vs_currencies=usd'
         const resp = await axios.get(url)
 
-        const { items } = resp.data.data;
+        const { data } = resp;
         let obj = {}
-        items.map( item => {
-            obj[item.contract_ticker_symbol] = item.quote_rate;
-            obj[
-                item.contract_ticker_symbol.substring(1)
-            ] = item.quote_rate;
+        Object.entries(data).map( ([ key, value ]) => {
+            obj[key] = value['usd'];
         })
+        obj['eth'] = obj['ethereum'];
+        obj['btc'] = obj['bitcoin'];
 
         set_quotes(obj);
 
@@ -51,6 +50,11 @@ export default function HomePage({ contract_avaperps, contract_erc20copy }) {
         const free_collateral = await contract_avaperps.methods.free_collateral(
             from
         ).call();
+
+        const total_collateral = await contract_avaperps.methods.user(
+            from
+        ).call();
+        console.log(total_collateral);
         
         const usdc_balance = await contract_erc20copy.methods.balanceOf(
             from
@@ -65,8 +69,12 @@ export default function HomePage({ contract_avaperps, contract_erc20copy }) {
         
         const user_positions = await contract_avaperps.methods.user_positions(
         ).call({ from });
+        console.log(user_positions);
     
-        setState({ free_collateral, usdc_balance, positions_value, maxLeverage, user_positions });
+        setState({
+            free_collateral, usdc_balance, positions_value,
+            maxLeverage, user_positions, total_collateral
+        });
 
         console.log('homepage loaded')
     }
@@ -87,6 +95,7 @@ export default function HomePage({ contract_avaperps, contract_erc20copy }) {
             type: 'number',
         },
         { field: 'Notional',
+            headerName: 'Entry Price',
             valueFormatter: params => {
                 return formatter.format(params.value)
             },
@@ -110,15 +119,9 @@ export default function HomePage({ contract_avaperps, contract_erc20copy }) {
             base_asset_amount / peg_multiplier
         );
 
-        const Change = (
-            position_values[id] - entry_notional_amount
-        ) / peg_multiplier;
+        const Change = Amount * quotes[coins[id]] - entry_notional_amount / peg_multiplier;
 
-        const Notional = Math.abs(
-            base_asset_amount / peg_multiplier * quotes[
-                coins[id].toUpperCase()
-            ]
-        );
+        const Notional = entry_notional_amount / peg_multiplier;
         
         return { Market, Amount, id, Change, Side, Notional };
     } ).filter(row => row.Amount > 0);

@@ -25,8 +25,8 @@ var formatter = new Intl.NumberFormat('en-US', {
 });
 
 export default function PermanentDrawerLeft() {
-  const coins = 'near btc eth'.split(' ');
-  const [quotes, set_quotes] = React.useState();
+    const coins = 'near btc eth'.split(' ');
+    const [quotes, set_quotes] = React.useState();
 
     const get_prices = async () => {
         const url = 'https://api.coingecko.com/api/v3/simple/price?ids=near%2Cbitcoin%2Cethereum&vs_currencies=usd'
@@ -46,81 +46,109 @@ export default function PermanentDrawerLeft() {
 
     React.useEffect(() => {
         get_prices();
-    }, [])
+    }, []);
 
     if (quotes == null) {
-        // get_prices();
         return <div />;
     }
 
-  const items = coins.map((perp, index) => (
-    <Link href={"/trade/" + perp}>
-      <ListItem
-        key={perp}
-        button>
-        <ListItemIcon>
-          <Avatar
-            src={`/${perp}Logo.png`}
-          />
-        </ListItemIcon>
+    const items = coins.map((perp, index) => (
+        <Link href={"/trade/" + perp}>
+        <ListItem
+            key={perp}
+            button>
+            <ListItemIcon>
+            <Avatar
+                src={`/${perp}Logo.png`}
+            />
+            </ListItemIcon>
 
-        <ListItemText primary={perp.toUpperCase()} />
+            <ListItemText primary={perp.toUpperCase()} />
 
-        <Typography>
-          {
-            formatter.format(
-                quotes[
-                    perp
-                ]
-            )
-          }
-        </Typography>
-      </ListItem>
-    </Link>
-  ));
+            <Typography>
+            {
+                formatter.format(
+                    quotes[
+                        perp
+                    ]
+                )
+            }
+            </Typography>
+        </ListItem>
+        </Link>
+    ));
 
-  // <AppBar
-  //     position="fixed"
-  //     sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-  //     >
-  //     <Toolbar>
-  //     <Typography variant="h6" noWrap component="div">
-  //     Permanent drawer
-  //     </Typography>
-  //     </Toolbar>
-  // </AppBar>
+    return (
+        <Drawer
+        sx={{
+            width: drawerWidth,
+            // flexShrink: 0,
+            '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            },
+            // margin: 'auto'
+            bgcolor: 'drawer.background'
+        }}
+        variant="permanent"
+        anchor="left"
+        >
+        <TopBar />
+        <Divider />
 
-  return (
-    <Drawer
-      sx={{
-        width: drawerWidth,
-        // flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-        },
-        // margin: 'auto'
-        bgcolor: 'drawer.background'
-      }}
-      variant="permanent"
-      anchor="left"
-    >
-      <TopBar />
-      <Divider />
+        <Box
+            p={1}
+            display="flex"
+            justifyContent="center"
+        // alignItems="center"
+        >
+            <TradeButton />
 
-      <Box
-        p={1}
-        display="flex"
-        justifyContent="center"
-      // alignItems="center"
-      >
-        <TradeButton />
+        </Box>
 
-      </Box>
-
-      <List>
-        {items}
-      </List>
-    </Drawer>
-  );
+        <List>
+            {items}
+        </List>
+        </Drawer>
+    );
 }
+
+class Timer extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        seconds: parseInt(props.startTimeInSeconds, 10) || 0
+      };
+    }
+  
+    tick() {
+      this.setState(state => ({
+        seconds: state.seconds + 1
+      }));
+      console.log('tick')
+    }
+  
+    componentDidMount() {
+      this.interval = setInterval(() => this.tick(), 50000);
+    }
+  
+    componentWillUnmount() {
+      clearInterval(this.interval);
+    }
+  
+    formatTime(secs) {
+      let hours   = Math.floor(secs / 3600);
+      let minutes = Math.floor(secs / 60) % 60;
+      let seconds = secs % 60;
+      return [hours, minutes, seconds]
+          .map(v => ('' + v).padStart(2, '0'))
+          .filter((v,i) => v !== '00' || i > 0)
+          .join(':');
+    }
+  
+    render() {
+      return (
+        <PermanentDrawerLeft />
+      );
+    }
+  }

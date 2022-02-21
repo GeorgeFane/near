@@ -31,7 +31,7 @@ export default function OrderButton({
         of ${perp.toUpperCase()}-PERP
     `;
 
-    const perps = 'avax btc eth link'.split(' ');
+    const perps = 'near btc eth'.split(' ');
     const index = perps.indexOf(perp);
 
   let from;
