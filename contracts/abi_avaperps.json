@@ -1,0 +1,482 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "close_my_position",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "delete_market",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount_usdc",
+				"type": "uint256"
+			}
+		],
+		"name": "deposit_collateral",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "oracle",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "base_asset_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "initialize_market",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "victim",
+				"type": "address"
+			}
+		],
+		"name": "liquidate",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "direction",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount_xbase",
+				"type": "uint256"
+			}
+		],
+		"name": "open_my_position",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "play",
+				"type": "bool"
+			}
+		],
+		"name": "pause",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "fullLiq",
+				"type": "uint256"
+			}
+		],
+		"name": "set_liq_leverage",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "userAddy",
+				"type": "address"
+			}
+		],
+		"name": "settle_funding_rates",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "logNum",
+				"type": "uint256"
+			}
+		],
+		"name": "Log",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "lev",
+				"type": "uint256"
+			}
+		],
+		"name": "set_max_leverage",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "update_market_funding_rates",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount_usdc",
+				"type": "uint256"
+			}
+		],
+		"name": "withdraw_collateral",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "userAddy",
+				"type": "address"
+			}
+		],
+		"name": "free_collateral",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "userAddy",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "getMarketPositions",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "market_index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "base_asset_amount",
+						"type": "int256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "entry_notional_amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "last_cum_funding",
+						"type": "int256"
+					}
+				],
+				"internalType": "struct AvaPerps.MarketPosition",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "Markets",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "initialized",
+				"type": "bool"
+			},
+			{
+				"internalType": "int256",
+				"name": "bias",
+				"type": "int256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "quote_asset_notional_amount",
+				"type": "uint256"
+			},
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "oracle",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "base_asset_amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quote_asset_amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "cum_funding_rate",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "funding_rate",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "periodicity",
+						"type": "int256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "mark_twap",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "mark_twap_ts",
+						"type": "int256"
+					}
+				],
+				"internalType": "struct AvaPerps.AMM",
+				"name": "amm",
+				"type": "tuple"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "maxLeverage",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "userAddy",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "user_market_position_value",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "userAddy",
+				"type": "address"
+			}
+		],
+		"name": "user_notional_value",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "userAddy",
+				"type": "address"
+			}
+		],
+		"name": "user_position_value",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "user_positions",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "market_index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "base_asset_amount",
+						"type": "int256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "entry_notional_amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "last_cum_funding",
+						"type": "int256"
+					}
+				],
+				"internalType": "struct AvaPerps.MarketPosition[4]",
+				"name": "",
+				"type": "tuple[4]"
+			},
+			{
+				"internalType": "uint256[4]",
+				"name": "",
+				"type": "uint256[4]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
