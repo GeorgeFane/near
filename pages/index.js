@@ -30,7 +30,7 @@ export default function LandingPage() {
             <Typography
                 variant='h1'
             >
-                Vista Protocol
+                Symm Protocol
             </Typography>
 
             <Typography
