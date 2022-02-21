@@ -6,7 +6,7 @@
 pragma solidity ^0.8.10;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol";
-import "https://github.com/fluxprotocol/fpo-evm/blob/main/contracts/ExamplePriceFeedConsumer.sol";
+import "https://github.com/fluxprotocol/fpo-evm/blob/main/contracts/interface/CLV2V3Interface.sol";
 
 contract ERC20Copy is ERC20("USD Coin", "USDC") {
     function mint(uint256 amount) public {
@@ -239,7 +239,7 @@ contract Symm {
 
     function oracle_price(address oracle) public view returns (uint) {
         return uint(
-            ExamplePriceFeedConsumer(oracle).getLatestPrice()
+            CLV2V3Interface(oracle).latestAnswer()
         );
     }
 
