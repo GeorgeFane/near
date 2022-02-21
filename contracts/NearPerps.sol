@@ -1,8 +1,5 @@
 // Things TODO
-// Call time from an oracle insteal
-// Create fake USDC on Aurora
-// Integrate with Aurora testnet smart contracts
-// Build with Flux smart contracts
+// Call time from an oracle instead
 // Partial liquidations
 
 // SPDX-License-Identifier: MIT
@@ -60,7 +57,7 @@ contract Symm {
     // TODO: USDC stuff
     // // our contract on aurora testnet
     // // random contract on javascript vm (remix default)
-    address constant USDC_CONTRACT_ADDRESS = 0x6148B4350fB25Ec31C605dfc2F5A12C84BD88B4a;
+    address constant USDC_CONTRACT_ADDRESS = 0xB367537885341CE0c7069Dd4798ba065c85B7dC7;
     ERC20Copy USDC_CONTRACT = ERC20Copy(USDC_CONTRACT_ADDRESS);
 
     //
@@ -92,6 +89,13 @@ contract Symm {
 
     uint256 numMarkets = 0;
 
+    string[] tokenNames = ["NEAR", "BTC", "ETH"];
+    address[] oracles = [
+        0x0a13BC1F3C441BCB165e8925Fe3E27d18d1Cd66C,
+        0x805215466b012Eb1a5721a22Be2AD5f250beff8a,
+        0x842AF8074Fa41583E3720821cF1435049cf93565
+    ];
+
     // all relevant information for pricing
     // need to do more research on peg_multiplier
     struct AMM {
@@ -113,18 +117,7 @@ contract Symm {
         owner = msg.sender;
         timestamp = block.timestamp;
         paused = false;
-
-        for (uint256 i = 0; i < 4; i++) {
-            initialize_market(tokenNames[i], oracles[i], 1000);
-        }
     }
-
-    string[] tokenNames = ["NEAR", "BTC", "ETH"];
-    address[] oracles = [
-        0x0a13BC1F3C441BCB165e8925Fe3E27d18d1Cd66C,
-        0x805215466b012Eb1a5721a22Be2AD5f250beff8a,
-        0x842AF8074Fa41583E3720821cF1435049cf93565
-    ];
 
     function initialize_market(
         string memory name,
@@ -133,6 +126,7 @@ contract Symm {
     ) public {
         require(msg.sender == owner, "Only admin can initialize markets");
         // require(Markets[index].initialized == false, "token has already been initialized, delete market first");
+        
         Market memory m;
         m.initialized = true;
         m.name = name;
@@ -648,14 +642,14 @@ contract Symm {
         return user[userAddy].positions[index];
     }
 
-    function user_positions() public view returns (MarketPosition[4] memory, uint[4] memory) {
-        MarketPosition[4] memory positions;
-        for (uint i = 0; i < 4; i++) {
+    function user_positions() public view returns (MarketPosition[3] memory, uint[3] memory) {
+        MarketPosition[3] memory positions;
+        for (uint i = 0; i < 3; i++) {
             positions[i] = user[msg.sender].positions[i];
         }
 
-        uint[4] memory position_values;
-        for (uint i = 0; i < 4; i++) {
+        uint[3] memory position_values;
+        for (uint i = 0; i < 3; i++) {
             position_values[i] = user_market_position_value(msg.sender, i);
         }
         return (positions, position_values);
