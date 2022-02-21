@@ -95,7 +95,7 @@ export default function HomePage({ contract_avaperps, contract_erc20copy }) {
             type: 'number',
         },
         { field: 'Notional',
-            headerName: 'Entry Price',
+            headerName: 'Entry Notional',
             valueFormatter: params => {
                 return formatter.format(params.value)
             },
@@ -121,7 +121,8 @@ export default function HomePage({ contract_avaperps, contract_erc20copy }) {
 
         const Change = Amount * quotes[coins[id]] - entry_notional_amount / peg_multiplier;
 
-        const Notional = entry_notional_amount / peg_multiplier;
+        const multiple = base_asset_amount > 0 ? 1 : -1;
+        const Notional = entry_notional_amount / peg_multiplier * multiple;
         
         return { Market, Amount, id, Change, Side, Notional };
     } ).filter(row => row.Amount > 0);
