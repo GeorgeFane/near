@@ -119,10 +119,12 @@ export default function HomePage({ contract_avaperps, contract_erc20copy }) {
             base_asset_amount / peg_multiplier
         );
 
-        const Change = Amount * quotes[coins[id]] - entry_notional_amount / peg_multiplier;
-
         const multiple = base_asset_amount > 0 ? 1 : -1;
-        const Notional = entry_notional_amount / peg_multiplier * multiple;
+        const Change = (
+            Amount * quotes[coins[id]] - entry_notional_amount / peg_multiplier
+        ) * multiple;
+
+        const Notional = entry_notional_amount / peg_multiplier;
         
         return { Market, Amount, id, Change, Side, Notional };
     } ).filter(row => row.Amount > 0);
