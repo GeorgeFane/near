@@ -89,7 +89,7 @@ export default function FormDialog({ contract_avaperps, contract_erc20copy }) {
 
                 <DialogContent>
                     <DialogContentText>
-                        USDC Faucet on Avalanche Fuji Testnet. Entails two transactions: minting test USDC and enabling you to deposit it.
+                        USDC Faucet on Aurora Testnet. Entails two transactions: minting test USDC and enabling you to deposit it.
                     </DialogContentText>
                 </DialogContent>
 
